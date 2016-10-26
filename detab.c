@@ -91,6 +91,7 @@ int getln(char s[], int lim)
 /* detab: replace '\t' chars with appropriate number of spaces */
 void detab(char to[], char from[])
 {
+    /* !!! */
 }
 
 
