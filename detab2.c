@@ -17,14 +17,14 @@ int main ()
             {
                 for (j = i; j < (STOPWIDTH + 1); ++j)
                 {
-                    putchar(' ');
+                    putchar('#');
                 }
                 i = STOPWIDTH + 1;
             }
             else
             {
                 for (j = 0; j < (STOPWIDTH - ((i-1) % STOPWIDTH)); ++j)
-                    putchar(' ');
+                    putchar('#');
                 i = i + j;
             }
         }
