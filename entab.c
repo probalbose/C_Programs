@@ -38,24 +38,22 @@
  *   - putchar(c)
  *
  *
- * first, find out if adding one tab is ok
- * !!!
- * if there are even more spaces after adding first tab, then...
- * while ((i + STOPWIDTH) < (i + lenb))...!!!
- * - fix this ^^^
  */
 
 #define MAXLINESIZE 1000
 #define STOPWIDTH 8
 
-int entab(int lenblank, int pos);
+int gettabs(int lenblank, int pos); /* gets number of tabs to print */
+int getnexttab(); /* !!! gets new index in line after printing a single '\t' char */
+int puttabs(); /* !!! prints numt '\t' chars and returns current index in line */
 
 int main ()
 {
     int c;
-    int i;
-    int lenb = 0;
-    int numt;
+    int i, j;
+    int tabbedi;
+    int lenb = 0; /* number of consecutive blank spaces */
+    int numt; /* number of tab chars to print */
 
     i = 1;
     while ((c = getchar()) != EOF)
@@ -63,11 +61,21 @@ int main ()
         if (c == ' ')
             ++lenb;
         else if (c == '\n')
+        {
+            putchar(c);
             i = 1;
             lenb = 0;
+        }
         else if (c != ' ' && lenb > 0)
         {
-            numt = entab(lenb, i);
+            numt = gettabs(lenb, i);
+
+            /* put tabs */
+            tabbedi = puttabs(numt, i);
+            /* put blanks */
+            for (j = 0; j < ((lenb + i) - tabbedi); ++j)
+                putchar(' ');
+            i = i + lenb;
             lenb = 0;
         }
         else
@@ -79,19 +87,22 @@ int main ()
     return 0;
 }
 
-int entab(int numblanks, int index)
+int gettabs(int numblanks, int index)
 {
-    int j;
+    int numt = 0;
+    int end;
 
-    if (index <= STOPWIDTH)
-        return 0;
-    else
-    {
-        /* do something */;
-    }
+    end = index + numblanks;
+
+    while ((index = getnexttab(index)) < end)
+        ++numt;
+    return numt;
 }
 
-
+int getnexttab(int index)
+{
+    /* !!! */
+}
 
 
 
