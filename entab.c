@@ -44,8 +44,7 @@
 #define STOPWIDTH 8
 
 int gettabs(int lenblank, int pos); /* gets number of tabs to print */
-int getnexttab(); /* !!! gets new index in line after printing a single '\t' char */
-int puttabs(); /* !!! prints numt '\t' chars and returns current index in line */
+int puttabs(int numtabs, int startindex); /* !!! prints numt '\t' chars and returns current index in line */
 
 int main ()
 {
@@ -66,15 +65,29 @@ int main ()
             i = 1;
             lenb = 0;
         }
-        else if (c != ' ' && lenb > 0)
+        else if (c != ' ' && lenb == 1)
+        {
+            putchar('#');
+            putchar(c);
+            lenb = 0;
+        }
+        else if (c != ' ' && lenb > 1)
         {
             numt = gettabs(lenb, i);
 
+            /* DEBUG 
+            printf("\nnumt: %i\n", numt);
+            */
+
             /* put tabs */
-            tabbedi = puttabs(numt, i);
+            if (numt > 0)
+                i = puttabs(numt, i);
+
             /* put blanks */
-            for (j = 0; j < ((lenb + i) - tabbedi); ++j)
-                putchar(' ');
+            for (j = 0; j < ((i + lenb) - i); ++j)
+                putchar('#');
+
+            putchar(c);
             i = i + lenb;
             lenb = 0;
         }
@@ -94,17 +107,30 @@ int gettabs(int numblanks, int index)
 
     end = index + numblanks;
 
-    while ((index = getnexttab(index)) < end)
+    /* move index to next tab stop */
+
+    while (((index % STOPWIDTH) + 1) != 1 && index < end)
+        ++index;
+    if (index < end)
+        ++numt;
+
+    /* find how many more tabs we can print */
+    while ((index = index + STOPWIDTH) < end)
         ++numt;
     return numt;
 }
 
-int getnexttab(int index)
+/* puttabs: print num '\t' chars; return new index (position for c = getchar()) */
+int puttabs(int numtabs, int start)
 {
-    /* !!! */
+    int end = start;
+    int i;
+
+    for (i = 0; i < numtabs; ++i)
+    {
+        putchar('\t');
+        end = end + STOPWIDTH;
+    }
+    return end;
 }
-
-
-
-
 
