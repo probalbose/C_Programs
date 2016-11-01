@@ -21,6 +21,8 @@
  *   - if 0: putchar(c)
  *   - if 1: continue;
  *     - if 
+ * - int lastchar
+ *   - previous character returned by getchar()
  *
  *
  * Main Function
@@ -40,32 +42,42 @@
 
 int main()
 {
-    int c;
-    int boundary = 0;
+    int c, lastchar;
     int incomment = 0;
+    int buf = 0; /* flag for handling funny sequences like /' */
 
+    lastchar = 0;
     while ((c = getchar()) != EOF)
     {
-        /* entering comment... */
-        if (c == '/' && incomment == 0)
-            boundary = 1;
-        else if (c == '*' && boundary == 1)
+        /* determine if program is currently reading a comment */
+        /* entering a comment */
+        if (lastchar == '/' && c == '*')
             incomment = 1;
-
-        /* exiting comment... */
-        else if (c == '/' && incomment == 1)
-            boundary = 0;
-        else if ((c != '/' && c != '*') && boundary == 0)
+        /* leaving a comment */
+        else if (lastchar == '*' && c == '/')
         {
-            putchar(c);
             incomment = 0;
+            buf = 1;
         }
 
-        /* not in a comment */
-        else if (incomment == 0)
+        /* print '/' and '*' chars that do not demarcate comments */
+        else if (lastchar == '/' && c != '*' && buf == 0 && incomment == 0)
+        {
+            putchar(lastchar);
+            putchar(c);
+        }
+        else if (lastchar == '*' && c != '/' && incomment == 0)
+        {
+            putchar(lastchar);
+            putchar(c);
+        }
+
+        /* putchar if program is not reading a comment */
+        else if (incomment == 0 && c!='/' && c!='*')
         {
             putchar(c);
-            boundary = 0;
+            buf = 0;
         }
+        lastchar = c;
     }
 }
