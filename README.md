@@ -1,1 +1,1 @@
-solutions to K&R2 exercises
+Solutions to the K&R2 exercises.
