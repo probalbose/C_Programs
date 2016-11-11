@@ -68,4 +68,5 @@ void squeeze (char string1[], const char string2[], char newstring[])
             newstring[k++] = string1[i];
         ++i;
     }
+    newstring[k] = '\0';
 }
