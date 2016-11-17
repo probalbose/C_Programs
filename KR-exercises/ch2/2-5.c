@@ -25,7 +25,7 @@
 
 int any(char s1[], char s2[]);
 
-int main()
+int main(void)
 {
     char test1[] = "testing";
     char match1[] = "b";
@@ -63,3 +63,4 @@ int any(char str1[], char str2[])
     }
     return found + 1;
 }
+
