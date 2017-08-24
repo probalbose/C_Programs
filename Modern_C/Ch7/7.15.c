@@ -4,17 +4,17 @@
 
 int main(void) {
     int input, i;
-    int result;
+    long double result;
 
     printf("enter a positive integer: ");
     scanf("%d", &input);
 
-    result = input;
+    result = (long double) input;
 
     for (i = input - 1; i > 0; i--)
         result *= i;
 
-    printf("factorial of %d: %d\n", input, result);
+    printf("factorial of %d: %Lf\n", input, result);
 
     return 0;
 }
