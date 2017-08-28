@@ -8,10 +8,8 @@
 
 int main(void) {
     char input;
-    int matrix[5][5];
-    int row1 = 0, row2 = 0, row3 = 0, row4 = 0, row5 = 0; //sums
-    int col1 = 0, col2 = 0, col3 = 0, col4 = 0, col5 = 0; //sums
-    int i, j; //for iteration
+    const int matrix[5][5];
+    int row_sum, col_sum, i, j;
 
     // fill matrix
     for (i = 0; i < 5; i++) {
@@ -21,12 +19,24 @@ int main(void) {
         }
     }
 
-    // print matrix
+    printf("\n");
+
+    // sum each row
+    printf("row sums:");
     for (i = 0; i < 5; i++) {
-        printf("row %d:", i);
+        row_sum = 0;
         for (j = 0; j < 5; j++)
-            printf(" %d", matrix[i][j]);
-        printf("\n");
+            row_sum += matrix[i][j];
+        printf(" %d", row_sum);
+    }
+
+    // sum each column
+    printf("\ncolumn sums:");
+    for (i = 0; i < 5; i++) {
+        col_sum = 0;
+        for (j = 0; j < 5; j++)
+            col_sum += matrix[j][i];
+        printf(" %d", col_sum);
     }
 
     printf("\n");
