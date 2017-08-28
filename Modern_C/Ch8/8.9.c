@@ -1,10 +1,12 @@
+//TODO: make first step occur in the top left corner every time
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
 
 int main(void) {
-    const char steps[] = {'A','B','C','D','E','F','G',
+    const char steps[] = {'B','C','D','E','F','G',
                           'H','I','J','K','L','M','N',
                           'O','P','Q','R','S','T','U',
                           'V','W','X','Y','Z'};
@@ -24,9 +26,10 @@ int main(void) {
     srand(time(NULL));
 
     // take steps
+    matrix[0][0] = 'A'; //first step
     i = 0;
     for (;;) {
-        if (i >= 26)
+        if (i >= 25)
             break;
 
         step = rand() % 4;
