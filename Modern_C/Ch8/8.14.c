@@ -34,11 +34,7 @@ int main(void) {
             for (j = i; j >= start_of_word; j--)
                 printf("%c", rev_sentence[j]);
             start_of_word = i + 1;
-        } else if (i == strlen(rev_sentence) - 1) { //TODO: something's going wrong right here...
-            for (j = i; j >= start_of_word; j--)
-                printf("%c", rev_sentence[j]);
-        } else
-            continue;
+        }
     }
 
     printf("%c\n", term_char);
