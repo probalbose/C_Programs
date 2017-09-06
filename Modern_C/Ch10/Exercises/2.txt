@@ -1,0 +1,4 @@
+a) external variable c, internal variables b and d
+b) external variable b, internal variable c, parameter a
+c) external variable b, internal variable c in function g(), internal variables a and d
+d) external variable b, internal variables c and d
