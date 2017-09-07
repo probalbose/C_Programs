@@ -17,34 +17,49 @@ void stack_overflow(void);
 void stack_underflow(void);
 
 int main(void) {
-    int result;
+    int term1, term2;
     char input;
-    bool end_of_expr;
 
     for (;;) {
         // prompt user for expression
-        printf("enter an RPN expression: ");
+        printf("enter an RPN expression (q to quit): ");
 
         // evaluate expression
-        end_of_expr = false;
-        while (end_of_expr == false) {
+        while (true) {
             scanf(" %c", &input);
             switch (input) {
-                // TODO !!!
-                case '=': break;
-                case '+': break;
-                case '-': break;
-                case '*': break;
-                case '/': break;
+                case '=': printf("value of expression: %d\n", pop()); 
+                          make_empty(); 
+                          break;
+                case '+': term2 = pop();
+                          term1 = pop();
+                          push(term1 + term2);
+                          break;
+                case '-': term2 = pop();
+                          term1 = pop();
+                          push(term1 - term2);
+                          break;
+                case '*': term2 = pop();
+                          term1 = pop();
+                          push(term1 * term2);
+                          break;
+                case '/': term2 = pop();
+                          term1 = pop();
+                          push(term1 / term2);
+                          break;
                 case '0': case '1': case '2': case '3': case '4':
                 case '5': case '6': case '7': case '8': case '9': 
-                          push(atoi(input)); break;
-                case '\n': end_of_expr = true; break;
-                default:  exit(EXIT_FAILURE); break;
+                          push(input - '0'); // convert char to int before push
+                          break;
+                case 'q': exit(EXIT_SUCCESS);
+                          break;
+                default:  printf("invalid input. try again.\n"); 
+                          make_empty();
+                          break;
             }
+            if (is_empty())
+                break;
         }
-        // print result
-        // TODO !!!
     }
 
     exit(EXIT_SUCCESS);
