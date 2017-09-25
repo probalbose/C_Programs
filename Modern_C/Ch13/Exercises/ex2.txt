@@ -1,0 +1,4 @@
+a) Illegal. putchar expects a character as input
+b) Legal. putchar prints the first character pointed to by p
+c) Legal. Prints the string pointed to by p
+d) Illegal. *p is not a pointer.

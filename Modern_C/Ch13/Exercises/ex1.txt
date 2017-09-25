@@ -1,0 +1,7 @@
+b, because "\n" is a char *
+c, because '\n' is not a string
+e, because '\n' is not a pointer to string or a string literal
+h, because "\n" is a char *, while putchar expects a char
+i, because '\n' is not a char *
+j, because puts already prints a trailing newline after printing the string passed to it
+
