@@ -1,0 +1,4 @@
+q has not been given a value, so strcpy will try to copy the string
+pointed to by p into an unknown area of memory. the program treats
+q like an array that has been initialized in memory, but q is just a 
+pointer to a single address.
