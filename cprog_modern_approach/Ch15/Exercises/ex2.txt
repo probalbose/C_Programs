@@ -1,0 +1,3 @@
+function definitions should not be included in header files. if 2 or more files
+include a header with a function definiton, the linker will see 2 copies of that
+function and raise an error.
