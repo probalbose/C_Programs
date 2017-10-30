@@ -1,0 +1,1 @@
+Type is union, so only 8 bytes will be allocated for an instance.

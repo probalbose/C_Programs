@@ -1,8 +1,7 @@
 #include <stdio.h>
 
 struct complex {
-    double real;
-    double imaginary;
+    double real, imaginary;
 };
 
 struct complex add_complex(struct complex c1, struct complex c2);
