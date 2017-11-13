@@ -1,0 +1,12 @@
+#define M 10
+
+(a) #if M
+    succeeds
+(b) #ifdef M
+    succeeds
+(c) #ifndef M
+    fails
+(d) #if defined(M)
+    succeeds
+(e) #if !defined(M)
+    fails

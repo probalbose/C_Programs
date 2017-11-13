@@ -1,0 +1,4 @@
+(a) x and y should each be enclosed in parentheses, like so:
+    (((x)+(y))/2)
+(b) the parameters should be enclosed in a set of parentheses, like so:
+    ((x)*(y))

@@ -11,7 +11,7 @@
 void reverse_name(char *name);
 
 int main(void) {
-    char input, buf[BUFSIZE+1];
+    char buf[BUFSIZE+1];
 
     printf("enter a first & last name: ");
 
