@@ -1,0 +1,9 @@
+The loop is incorrect because it frees p and then tries to assign p to p->next. This works better:
+
+struct node *cur;
+p = first;
+while (p != NULL) {
+    cur = p;
+    p = p-> next;
+    free(cur);
+}
