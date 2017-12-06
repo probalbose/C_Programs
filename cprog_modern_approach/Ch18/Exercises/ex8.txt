@@ -1,0 +1,5 @@
+(a) x is an array of pointers to functions that take an int parameter and return a char
+(b) x is a function with 1 int parameter that returns a pointer to an array of 5 ints
+(c) x is a function with no params that returns a pointer to a function with 1 int param that returns a pointer to a float
+(d) x is a function with 2 params: an int and a pointer to a function with an int param that returns nothing. x returns a pointer to
+    a function with 1 int arg that returns nothing

@@ -1,0 +1,1 @@
+array variables, enum variables, struct variables, and union variables can all be initialized.
