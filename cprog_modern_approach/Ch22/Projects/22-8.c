@@ -7,8 +7,8 @@
 
 struct part {
   int number;
-  char name[NAME_LEN+1];
   int on_hand;
+  char name[NAME_LEN+1];
 } inventory[MAX_PARTS];
 
 int num_parts = 0;   /* number of parts currently stored */
@@ -179,16 +179,22 @@ void dump(void) {
     read_line(filename, NAME_LEN);
 
     // open file for writing
-    fp = fopen(filename, "wb");
+    fp = fopen(filename, "w");
     if (fp == NULL) {
         fprintf(stderr, "could not open file for writing");
         exit(EXIT_FAILURE);
     }
 
     // write
-    fwrite(inventory, sizeof(struct part), num_parts, fp);
-    rewind(fp);
+    for (i = 0; i < num_parts; i++) {
+        // for each item in inventory
+        // write each part - number, on_hand, and name
+        fprintf(fp, "%d ", inventory[i].number);
+        fprintf(fp, "%d ", inventory[i].on_hand);
+        fprintf(fp, "%s\n", inventory[i].name);
+    }
 
+    rewind(fp);
     fclose(fp);
 }
 
@@ -201,7 +207,7 @@ void dump(void) {
  */
 void load(void) {
     FILE *fp;
-    char filename[NAME_LEN];
+    char filename[NAME_LEN], buf[sizeof(struct part)];
     int i, num_written = 0;
     
     // get filename
@@ -214,8 +220,15 @@ void load(void) {
     }
 
     // read file into inventory
-    fread(&inventory[0], sizeof(struct part), MAX_PARTS, fp);
+    for (i = 0; i < MAX_PARTS; i++) {
+        if (feof(fp)) {
+            break;
+        }
+        fgets(buf, sizeof(struct part), fp);
+        sscanf(buf, "%d %d %s\n", &inventory[i].number, &inventory[i].on_hand, inventory[i].name);
+    }
 
     // check read status, exit
+    rewind(fp);
     fclose(fp);
 }
