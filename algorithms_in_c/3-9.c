@@ -38,7 +38,7 @@ struct s_node *top, *bottom;
 struct node *peek(void);
 struct node *pop(void);
 void push(struct node *t);
-void stackinit(void);
+void stack_init(void);
 bool stack_empty(void);
 void terminate(const char *msg);
 void traverse(struct node *t);
@@ -52,8 +52,15 @@ struct node *peek(void)
 
 struct node *pop(void)
 {
-	struct node *ret = top->next->tree;
-	top->next = top->next->next;
+	struct node *ret;
+    struct s_node *tmp;
+    ret = malloc(sizeof(*ret));
+    if (!ret)
+        terminate("could not pop off the stack");
+    tmp = top->next;
+    top->next = tmp->next;
+    ret = tmp->tree;
+    free(tmp);
 	return ret;
 }
 
@@ -74,7 +81,7 @@ bool stack_empty(void)
     return top->next == bottom;
 }
 
-void stackinit(void)
+void stack_init(void)
 {
     // dummy node
     z = malloc(sizeof(*z));
@@ -154,6 +161,52 @@ void visit(struct node *t)
 
 int main(void)
 {
-    //!!! TODO: implement driver code
+    struct node *a, *b, *c, *d, *e;
+
+    stack_init();
+
+    // build tree
+    /*
+     *           a
+     *          / \
+     *         b   e
+     *        / \
+     *       c   d
+     *
+     */
+    a = malloc(sizeof(*a));
+    b = malloc(sizeof(*b));
+    c = malloc(sizeof(*c));
+    d = malloc(sizeof(*d));
+    e = malloc(sizeof(*e));
+
+    if (a == NULL || b == NULL || c == NULL || d == NULL || e == NULL)
+        terminate("failed to build tree");
+
+    a->data = 'a';
+    b->data = 'b';
+    c->data = 'c';
+    d->data = 'd';
+    e->data = 'e';
+
+    a->l = b;
+    a->r = e;
+    b->l = c;
+    b->r = d;
+    c->l = z;
+    c->r = z;
+    d->r = z;
+    d->l = z;
+    e->r = z;
+    e->l = z;
+    
+    // postorder traversal  
+    traverse(a);
+
+    free(a);
+    free(b);
+    free(c);
+    free(d);
+    free(e);
     return 0;
 }
